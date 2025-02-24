@@ -12,6 +12,10 @@ export class Dispose implements Disposable {
   }
 
   [Symbol.dispose]() {
+    this.dispose();
+  }
+
+  dispose() {
     if (!this.#ptr) {
       return;
     }
