@@ -115,11 +115,11 @@ export class XmlNode {
     return this.#ptr;
   }
 
-  get(xpath: XmlXPath): XmlNode | null;
-  get(xpath: string, namespaces?: NamespaceMap): XmlNode | null;
-  get(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode | null;
+  xpathGet(xpath: XmlXPath): XmlNode | null;
+  xpathGet(xpath: string, namespaces?: NamespaceMap): XmlNode | null;
+  xpathGet(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode | null;
 
-  get(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode | null {
+  xpathGet(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode | null {
     const xpathPtr = xpathEval(this.#ptr, xpath, namespaces ?? this.#namespaces);
 
     if (!xpathPtr) {
@@ -158,10 +158,10 @@ export class XmlNode {
   }
 
 
-  find(xpath: XmlXPath): XmlNode[];
-  find(xpath: string, namespaces?: NamespaceMap): XmlNode[];
-  find(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode[] ;
-  find(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode[] {
+  xpathFind(xpath: XmlXPath): XmlNode[];
+  xpathFind(xpath: string, namespaces?: NamespaceMap): XmlNode[];
+  xpathFind(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode[] ;
+  xpathFind(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode[] {
     const xpathPtr = xpathEval(this.#ptr, xpath, namespaces ?? this.#namespaces);
 
     if (!xpathPtr) {
@@ -262,7 +262,7 @@ export class XmlElement extends XmlNodeNamed {
     return namespaces;
   }
 
-  findElementChildren(name: string): XmlElement[] | null {
+  find(name: string): XmlElement[] | null {
     if (!this.#elementChildren) {
       this.#elementChildren = new Map();
       for (const element of this.elementChildren) {
@@ -276,8 +276,8 @@ export class XmlElement extends XmlNodeNamed {
     return this.#elementChildren.get(name) ?? null;
   }
 
-  getElementChildren(name: string): XmlElement | null {
-    const list = this.findElementChildren(name);
+  get(name: string): XmlElement | null {
+    const list = this.find(name);
 
     return list?.[0] ?? null;
   }

@@ -102,19 +102,19 @@ export class XmlDocument extends Dispose {
     return new XmlDocument(parse(data, options.url, options.option));
   }
 
-  get(xpath: XmlXPath): XmlNode | null;
+  xpathGet(xpath: XmlXPath): XmlNode | null;
 
-  get(xpath: string, namespaces?: NamespaceMap): XmlNode | null;
+  xpathGet(xpath: string, namespaces?: NamespaceMap): XmlNode | null;
 
-  get(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode | null {
-    return this.root.get(xpath, namespaces);
+  xpathGet(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode | null {
+    return this.root.xpathGet(xpath, namespaces);
   }
 
-  find(xpath: XmlXPath): XmlNode[];
+  xpathFind(xpath: XmlXPath): XmlNode[];
 
-  find(xpath: string, namespaces?: NamespaceMap): XmlNode[];
+  xpathFind(xpath: string, namespaces?: NamespaceMap): XmlNode[];
 
-  find(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode[] {
-    return this.root.find(xpath, namespaces);
+  xpathFind(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode[] {
+    return this.root.xpathFind(xpath, namespaces);
   }
 }
