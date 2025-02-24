@@ -1,0 +1,67 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+env:
+  EM_VERSION: latest
+  EM_CACHE_FOLDER: emsdk-cache
+  BUILD_DIR: ${{github.workspace}}/build
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Setup cache
+        id: cache-system-libraries
+        uses: actions/cache@v4
+        with:
+          path: ${{env.EM_CACHE_FOLDER}}
+          key: ${{env.EM_VERSION}}-${{ runner.os }}
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          registry-url: https://registry.npmjs.org
+      - name: Setup emsdk
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: ${{env.EM_VERSION}}
+          actions-cache-folder: ${{env.EM_CACHE_FOLDER}}
+      - name: npm package install
+        run: npm ci
+      - name: makedir
+        run: mkdir -p ${{env.BUILD_DIR}}
+      - name: configure
+        working-directory: ${{env.BUILD_DIR}}
+        run: emconfigure ../libxml2/autogen.sh --without-python --without-sax1 --without-modules --without-html --without-zlib --without-lzma --without-writer --disable-shared --enable-static
+      - name: make
+        working-directory: ${{env.BUILD_DIR}}
+        run: emmake make
+      - name: Wasm build
+        working-directory: ${{env.BUILD_DIR}}
+        run: emcc -L.libs -lxml2 -O3 -o libxml2-wasm.mjs --emit-tsd=libxml2-wasm.d.mts -s ALLOW_MEMORY_GROWTH -s ALLOW_TABLE_GROWTH -s EXPORT_ES6 -s EXPORTED_RUNTIME_METHODS=addFunction,UTF8ToString,getValue,lengthBytesUTF8,stringToUTF8 -s EXPORTED_FUNCTIONS=@../exported-functions.txt
+      - name: Wasm move
+        run: mkdir -p lib; cp ${{env.BUILD_DIR}}/libxml2-wasm.* lib
+      - name: TypeScript build
+        working-directory: ${{github.workspace}}
+        run: npx tsc
+      - name: Publish
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: tar zcvf release.tar.gz lib dist package.json package-lock.json tsconfig.json
+      - name: Upload release assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: release.tar.gz
+          asset_name: release
+          tag: libxml2js-${{ github.ref }}.tar.gz
+          overwrite: true

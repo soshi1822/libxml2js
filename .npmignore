@@ -1,0 +1,10 @@
+/.idea/
+/.github/
+/node_modules/
+/emsdk-cache/
+/libxml2/
+/src/
+/build/
+/.gitignore
+/.gitmodules
+/exported-functions.txt
