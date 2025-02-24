@@ -49,7 +49,7 @@ jobs:
         run: emmake make
       - name: Wasm build
         working-directory: ${{env.BUILD_DIR}}
-        run: emcc -L.libs -lxml2 -O3 -o libxml2-wasm.mjs --emit-tsd=libxml2-wasm.d.mts -s ALLOW_MEMORY_GROWTH -s ALLOW_TABLE_GROWTH -s EXPORT_ES6 -s EXPORTED_RUNTIME_METHODS=addFunction,UTF8ToString,getValue,lengthBytesUTF8,stringToUTF8 -s EXPORTED_FUNCTIONS=@../exported-functions.txt
+        run: emcc -L.libs -lxml2 -O3 -o libxml2-wasm.mjs --emit-tsd=libxml2-wasm.d.mts -sALLOW_MEMORY_GROWTH -sALLOW_TABLE_GROWTH  -sEXPORTED_RUNTIME_METHODS=addFunction,UTF8ToString,getValue,lengthBytesUTF8,stringToUTF8 -sEXPORTED_FUNCTIONS=@../exported-functions.txt
       - name: Wasm move
         run: mkdir -p lib; cp ${{env.BUILD_DIR}}/libxml2-wasm.* lib
       - name: TypeScript build
