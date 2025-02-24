@@ -43,7 +43,7 @@ function xpathEval(nodePtr: number, xpath: string | XmlXPath, namespaces?: Names
   const prt = compiledXPathEval(nodePtr, xpathCompiled);
 
   if (!(xpath instanceof XmlXPath)) {
-    xpathCompiled[Symbol.dispose]();
+    xpathCompiled.dispose();
   }
 
   return prt;
