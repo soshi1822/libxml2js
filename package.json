@@ -6,6 +6,9 @@
   "author": "soshi1822",
   "license": "",
   "description": "Parsing XML in JS using libxml2.",
+  "repository": {
+    "url": "https://github.com/soshi1822/libxml2js"
+  },
   "devDependencies": {
     "@types/node": "^22.13.1",
     "typescript": "^5.7.3"
