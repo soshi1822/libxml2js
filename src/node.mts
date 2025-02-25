@@ -195,8 +195,10 @@ export class XmlNode {
 }
 
 export class XmlNodeNamed extends XmlNode {
+  #name?: string;
+
   get name(): string {
-    return XmlNodeStruct.nameValue(this.ptr);
+    return this.#name ??= XmlNodeStruct.nameValue(this.ptr);
   }
 
   get prefix() {
