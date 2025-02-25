@@ -73,16 +73,17 @@ function parse(data: string | Uint8Array, url?: string, option?: ParseOption) {
   const xincPtr = xmlXIncludeNewContext(docPtr);
 
   xmlXIncludeSetErrorHandler(xincPtr, XmlErrorCollector.errorEventCatchPtr, incErr);
-  xmlXIncludeFreeContext(xincPtr);
 
   if (xmlXIncludeProcessNode(xincPtr, docPtr) < 0) {
     const errDetails = XmlErrorCollector.get(incErr);
     XmlErrorCollector.delete(incErr);
+    xmlXIncludeFreeContext(xincPtr);
 
     throw new XmlError(errDetails.map((d) => d.message).join(''), errDetails);
   }
 
   XmlErrorCollector.delete(incErr);
+  xmlXIncludeFreeContext(xincPtr);
 
   return docPtr;
 }
