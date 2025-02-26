@@ -3,7 +3,12 @@
   "version": "0.9.3",
   "exports": {
     ".": {
+      "import": "./dist/index.mjs",
       "default": "./dist/index.mjs"
+    },
+    "./wasm": {
+      "import": "./lib/libxml2-wasm.mjs",
+      "default": "./lib/libxml2-wasm.mjs"
     }
   },
   "types": "./dist/index.d.ts",
