@@ -104,17 +104,13 @@ export class XmlDocument extends Dispose {
   }
 
   xpathGet(xpath: XmlXPath): XmlNode | null;
-
   xpathGet(xpath: string, namespaces?: NamespaceMap): XmlNode | null;
-
   xpathGet(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode | null {
     return this.root.xpathGet(xpath, namespaces);
   }
 
   xpathFind(xpath: XmlXPath): XmlNode[];
-
   xpathFind(xpath: string, namespaces?: NamespaceMap): XmlNode[];
-
   xpathFind(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode[] {
     return this.root.xpathFind(xpath, namespaces);
   }

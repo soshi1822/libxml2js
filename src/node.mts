@@ -118,7 +118,6 @@ export class XmlNode {
   xpathGet(xpath: XmlXPath): XmlNode | null;
   xpathGet(xpath: string, namespaces?: NamespaceMap): XmlNode | null;
   xpathGet(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode | null;
-
   xpathGet(xpath: string | XmlXPath, namespaces?: NamespaceMap): XmlNode | null {
     const xpathPtr = xpathEval(this.#ptr, xpath, namespaces ?? this.#namespaces);
 
