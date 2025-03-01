@@ -41,6 +41,7 @@ export enum ParseOption {
   XML_PARSE_OLDSAX = 1 << 20,
   XML_PARSE_IGNORE_ENC = 1 << 21,
   XML_PARSE_BIG_LINES = 1 << 22,
+  XML_PARSE_NO_XXE = 1 << 23,
 }
 
 export interface ParseOptions {
@@ -55,7 +56,13 @@ function parse(data: string | Uint8Array, url?: string, option?: ParseOption) {
   const parseErr = XmlErrorCollector.create();
   xmlCtxtSetErrorHandler(ctxtPtr, XmlErrorCollector.errorEventCatchPtr, parseErr);
 
-  const docPtr = xmlReadMemory(ctxtPtr, data, url ?? null, null, option ?? ParseOption.XML_PARSE_NOBLANKS);
+  const docPtr = xmlReadMemory(
+    ctxtPtr,
+    data,
+    url ?? null,
+    null,
+    option ?? (ParseOption.XML_PARSE_NOBLANKS | ParseOption.XML_PARSE_NO_XXE)
+  );
 
   xmlFreeParserCtxt(ctxtPtr);
 
