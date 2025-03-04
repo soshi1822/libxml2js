@@ -193,11 +193,11 @@ export class XmlNode {
   }
 }
 
-export class XmlNodeNamed extends XmlNode {
-  #name?: string;
+export class XmlNodeNamed<Name extends string = string> extends XmlNode {
+  #name?: Name;
 
-  get name(): string {
-    return this.#name ??= XmlNodeStruct.nameValue(this.ptr);
+  get name(): Name {
+    return this.#name ??= XmlNodeStruct.nameValue(this.ptr) as Name;
   }
 
   get prefix() {
@@ -207,8 +207,8 @@ export class XmlNodeNamed extends XmlNode {
   }
 }
 
-export class XmlElement extends XmlNodeNamed {
-  #elementChildren?: Map<string, XmlElement[]>;
+export class XmlElement<Name extends string = string> extends XmlNodeNamed<Name> {
+  #elementChildren?: Map<string, XmlElement<string>[]>;
 
   get firstChild(): XmlNode | null {
     return this.createNode(XmlNodeStruct.children(this.ptr));
@@ -263,7 +263,7 @@ export class XmlElement extends XmlNodeNamed {
     return namespaces;
   }
 
-  find(name: string): XmlElement[] | null {
+  find<FindName extends string>(name: FindName): XmlElement<FindName>[] | null {
     if (!this.#elementChildren) {
       this.#elementChildren = new Map();
       for (const element of this.elementChildren) {
@@ -274,16 +274,16 @@ export class XmlElement extends XmlNodeNamed {
       }
     }
 
-    return this.#elementChildren.get(name) ?? null;
+    return (this.#elementChildren.get(name) ?? null) as XmlElement<FindName>[] | null;
   }
 
-  get(name: string): XmlElement | null {
-    const list = this.find(name);
+  get<GetName extends string>(name: GetName): XmlElement<GetName> | null {
+    const list = this.find<GetName>(name);
 
     return list?.[0] ?? null;
   }
 
-  attr(name: string, prefix?: string) {
+  attr<GetName extends string>(name: GetName, prefix?: string) {
     const namespace = prefix ? namespaceForPrefix(this.ptr, prefix) : null;
     const attrPtr = xmlHasNsProp(this.ptr, name, namespace);
 
@@ -291,11 +291,11 @@ export class XmlElement extends XmlNodeNamed {
       return null;
     }
 
-    return new XmlAttribute(attrPtr);
+    return new XmlAttribute<GetName>(attrPtr);
   }
 }
 
-export class XmlAttribute extends XmlNodeNamed {
+export class XmlAttribute<Name extends string = string> extends XmlNodeNamed<Name> {
   get value() {
     return super.content;
   }
