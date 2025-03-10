@@ -87,12 +87,24 @@ export function xmlReadMemory(ctxtPtr: number, xml: string | Uint8Array, url: st
     typeof xml === 'string' ? string2pointer(xml) : buffer2pointer(xml);
   const urlPtr = string2pointer(url).ptr;
 
-  const xmlCtxtPtr = libxml2._xmlCtxtReadMemory(ctxtPtr, xmlPtr, xmlLength, urlPtr, 0, options);
+  const xmlDocPtr = libxml2._xmlCtxtReadMemory(ctxtPtr, xmlPtr, xmlLength, urlPtr, 0, options);
 
   libxml2._free(xmlPtr);
   libxml2._free(urlPtr);
 
-  return xmlCtxtPtr;
+  return xmlDocPtr;
+}
+export function htmlReadMemory(ctxtPtr: number, html: string | Uint8Array, url: string | null, encoding: null, options: number): number {
+  const { ptr: htmlPtr, length: xmlLength } =
+    typeof html === 'string' ? string2pointer(html) : buffer2pointer(html);
+  const urlPtr = string2pointer(url).ptr;
+
+  const htmlDocPtr = libxml2._htmlCtxtReadMemory(ctxtPtr, htmlPtr, xmlLength, urlPtr, 0, options);
+
+  libxml2._free(htmlPtr);
+  libxml2._free(urlPtr);
+
+  return htmlDocPtr;
 }
 
 export function xmlXPathRegisterNs(ctxPtr: number, prefix: string, uri: string): number {
@@ -315,3 +327,5 @@ export const xmlXPathFreeContext = libxml2._xmlXPathFreeContext;
 export const xmlXPathFreeObject = libxml2._xmlXPathFreeObject;
 export const xmlXPathNewContext = libxml2._xmlXPathNewContext;
 export const xmlXPathSetContextNode = libxml2._xmlXPathSetContextNode;
+export const htmlNewParserCtxt = libxml2._htmlNewParserCtxt;
+export const htmlFreeParserCtxt = libxml2._htmlFreeParserCtxt;

@@ -30,3 +30,6 @@ _xmlXPathFreeObject
 _xmlXPathNewContext
 _xmlXPathRegisterNs
 _xmlXPathSetContextNode
+_htmlNewParserCtxt
+_htmlCtxtReadMemory
+_htmlFreeParserCtxt
