@@ -44,6 +44,8 @@ jobs:
       - name: configure
         working-directory: ${{env.BUILD_DIR}}
         run: emconfigure ../libxml2/autogen.sh --without-python --without-sax1 --without-modules --without-html --without-zlib --without-lzma --without-writer --disable-shared --enable-static
+        env:
+          CFLAGS: -O2 -fno-semantic-interposition
       - name: make
         working-directory: ${{env.BUILD_DIR}}
         run: emmake make
