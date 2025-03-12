@@ -1,7 +1,6 @@
 import {
   XmlError,
   xmlFreeNode,
-  xmlHasNsProp,
   XmlNamedNodeStruct,
   xmlNodeGetContent,
   XmlNodeSetStruct,
@@ -208,7 +207,8 @@ export class XmlNodeNamed<Name extends string = string> extends XmlNode {
 }
 
 export class XmlElement<Name extends string = string> extends XmlNodeNamed<Name> {
-  #elementChildren?: Map<string, XmlElement<string>[]>;
+  #elementChildren?: Map<string, XmlElement[]>;
+  #attrs?: Map<string, XmlAttribute>;
 
   get firstChild(): XmlNode | null {
     return this.createNode(XmlNodeStruct.children(this.ptr));
@@ -283,15 +283,17 @@ export class XmlElement<Name extends string = string> extends XmlNodeNamed<Name>
     return list?.[0] ?? null;
   }
 
-  attr<GetName extends string>(name: GetName, prefix?: string) {
-    const namespace = prefix ? namespaceForPrefix(this.ptr, prefix) : null;
-    const attrPtr = xmlHasNsProp(this.ptr, name, namespace);
+  attr<GetName extends string | `${string}:${string}`>(name: GetName): XmlAttribute<GetName> | null {
+    if (!this.#attrs) {
+      this.#attrs = new Map();
+      for (const attr of this.attrs) {
+        const prefix = attr.prefix;
 
-    if (!attrPtr) {
-      return null;
+        this.#attrs.set(prefix ? `${prefix}:${attr.name}` : attr.name, attr);
+      }
     }
 
-    return new XmlAttribute<GetName>(attrPtr);
+    return (this.#attrs?.get(name) ?? null) as XmlAttribute<GetName> | null;
   }
 }
 
