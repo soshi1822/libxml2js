@@ -1,4 +1,4 @@
-import libxml2module from '../lib/libxml2-wasm.mjs';
+import libxml2module from '../lib/libxml2-wasm';
 
 export const libxml2 = await libxml2module();
 libxml2._xmlInitParser();
@@ -297,6 +297,7 @@ export class XmlErrorStruct {
 export function xmlCleanupInputProvider(): void {
   libxml2._xmlCleanupInputCallbacks();
 }
+
 export const xmlCtxtSetErrorHandler = libxml2._xmlCtxtSetErrorHandler;
 export const xmlDocGetRootElement = libxml2._xmlDocGetRootElement;
 export const xmlFreeDoc = libxml2._xmlFreeDoc;

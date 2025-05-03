@@ -3,14 +3,15 @@
   "version": "0.9.4",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "default": "./dist/index.mjs"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./wasm": {
-      "import": "./lib/libxml2-wasm.mjs",
-      "default": "./lib/libxml2-wasm.mjs"
+      "import": "./lib/libxml2-wasm.js",
+      "default": "./lib/libxml2-wasm.js"
     }
   },
+  "main": "dist/index.js",
   "types": "./dist/index.d.ts",
   "author": "soshi1822",
   "license": "",

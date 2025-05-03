@@ -16,8 +16,8 @@ import {
   XmlXPathObjectStruct,
   xmlXPathRegisterNs,
   xmlXPathSetContextNode
-} from './wasm.mjs';
-import { NamespaceMap, XmlXPath } from './xpath.mjs';
+} from './wasm';
+import { NamespaceMap, XmlXPath } from './xpath';
 
 function compiledXPathEval(nodePtr: number, xpath: XmlXPath) {
   const context = xmlXPathNewContext(XmlNodeStruct.doc(nodePtr));

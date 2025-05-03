@@ -11,10 +11,10 @@ import {
   xmlXIncludeNewContext,
   xmlXIncludeProcessNode,
   xmlXIncludeSetErrorHandler
-} from './wasm.mjs';
-import { Dispose } from './dispose.mjs';
-import { XmlElement, XmlNode } from './node.mjs';
-import { NamespaceMap, XmlXPath } from './xpath.mjs';
+} from './wasm';
+import { Dispose } from './dispose';
+import { XmlElement, XmlNode } from './node';
+import { NamespaceMap, XmlXPath } from './xpath';
 
 export enum ParseOption {
   XML_PARSE_DEFAULT = 0,
@@ -42,6 +42,9 @@ export enum ParseOption {
   XML_PARSE_IGNORE_ENC = 1 << 21,
   XML_PARSE_BIG_LINES = 1 << 22,
   XML_PARSE_NO_XXE = 1 << 23,
+  XML_PARSE_UNZIP = 1 << 24,
+  XML_PARSE_NO_SYS_CATALOG = 1 << 25,
+  XML_PARSE_CATALOG_PI = 1 << 26
 }
 
 export interface ParseOptions {
