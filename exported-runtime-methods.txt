@@ -1,0 +1,7 @@
+addFunction
+UTF8ToString
+getValue
+lengthBytesUTF8
+stringToUTF8
+HEAPU8
+HEAP32
