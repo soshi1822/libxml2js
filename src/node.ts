@@ -16,7 +16,7 @@ import {
   XmlXPathObjectStruct,
   xmlXPathRegisterNs,
   xmlXPathSetContextNode
-} from './wasm';
+} from './libxml2';
 import { NamespaceMap, XmlXPath } from './xpath';
 
 function compiledXPathEval(nodePtr: number, xpath: XmlXPath) {

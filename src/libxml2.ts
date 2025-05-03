@@ -1,6 +1,7 @@
 import libxml2module from '../lib/libxml2-wasm';
 
 export const libxml2 = await libxml2module();
+
 libxml2._xmlInitParser();
 
 export interface ErrorDetail {

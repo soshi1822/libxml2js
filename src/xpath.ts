@@ -1,4 +1,4 @@
-import { xmlXPathCtxtCompile, xmlXPathFreeCompExpr } from './wasm';
+import { xmlXPathCtxtCompile, xmlXPathFreeCompExpr } from './libxml2';
 import { Dispose } from './dispose';
 
 export interface NamespaceMap {

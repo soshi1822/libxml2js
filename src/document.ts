@@ -11,7 +11,7 @@ import {
   xmlXIncludeNewContext,
   xmlXIncludeProcessNode,
   xmlXIncludeSetErrorHandler
-} from './wasm';
+} from './libxml2';
 import { Dispose } from './dispose';
 import { XmlElement, XmlNode } from './node';
 import { NamespaceMap, XmlXPath } from './xpath';
