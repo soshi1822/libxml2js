@@ -3,16 +3,15 @@
   "version": "0.9.5",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
     },
     "./wasm": {
-      "import": "./lib/libxml2-wasm.js",
-      "default": "./lib/libxml2-wasm.js"
+      "import": "./lib/libxml2-wasm.mjs",
+      "default": "./lib/libxml2-wasm.mjs"
     }
   },
-  "main": "dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.mts",
   "author": "soshi1822",
   "license": "",
   "description": "Parsing XML in JS using libxml2.",

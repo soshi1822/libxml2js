@@ -16,8 +16,8 @@ import {
   XmlXPathObjectStruct,
   xmlXPathRegisterNs,
   xmlXPathSetContextNode
-} from './libxml2';
-import { NamespaceMap, XmlXPath } from './xpath';
+} from './libxml2.mjs';
+import { NamespaceMap, XmlXPath } from './xpath.mjs';
 
 function compiledXPathEval(nodePtr: number, xpath: XmlXPath) {
   const context = xmlXPathNewContext(XmlNodeStruct.doc(nodePtr));

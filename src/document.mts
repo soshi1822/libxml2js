@@ -11,10 +11,10 @@ import {
   xmlXIncludeNewContext,
   xmlXIncludeProcessNode,
   xmlXIncludeSetErrorHandler
-} from './libxml2';
-import { Dispose } from './dispose';
-import { XmlElement, XmlNode } from './node';
-import { NamespaceMap, XmlXPath } from './xpath';
+} from './libxml2.mjs';
+import { Dispose } from './dispose.mjs';
+import { XmlElement, XmlNode } from './node.mjs';
+import { NamespaceMap, XmlXPath } from './xpath.mjs';
 
 export enum ParseOption {
   XML_PARSE_DEFAULT = 0,

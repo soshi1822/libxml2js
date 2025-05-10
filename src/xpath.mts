@@ -1,5 +1,5 @@
-import { xmlXPathCtxtCompile, xmlXPathFreeCompExpr } from './libxml2';
-import { Dispose } from './dispose';
+import { xmlXPathCtxtCompile, xmlXPathFreeCompExpr } from './libxml2.mjs';
+import { Dispose } from './dispose.mjs';
 
 export interface NamespaceMap {
   [prefix: string]: string;

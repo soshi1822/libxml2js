@@ -1,4 +1,4 @@
-import libxml2module from '../lib/libxml2-wasm';
+import libxml2module from '../lib/libxml2-wasm.mjs';
 
 export const libxml2 = await libxml2module();
 
